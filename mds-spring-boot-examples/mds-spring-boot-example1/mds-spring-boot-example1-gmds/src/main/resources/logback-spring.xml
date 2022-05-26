@@ -46,7 +46,6 @@
 	<logger name="org.apache.http" level="ERROR"/>
 	<logger name="org.apache.ibatis" level="INFO"/>
 	<logger name="org.mybatis.spring" level="INFO"/>
-    <logger name="org.mybatis.spring" level="INFO"/>
     <logger name="org.mybatis.spring.SqlSessionFactoryBean" level="DEBUG"/>
     <logger name="org.mybatis.spring.mapper.ClassPathMapperScanner" level="DEBUG"/>
 	<logger name="org.springframework" level="INFO"/>

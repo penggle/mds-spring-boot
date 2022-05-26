@@ -1,0 +1,13 @@
+spring:
+    #数据源配置
+    datasource:
+        #商品库配置(逻辑名称)
+        product:
+            username: root
+            password: 123456
+            url: jdbc:mysql://127.0.0.1:3306/ec_product?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&rewriteBatchedStatements=true&useCursorFetch=true
+        #订单库配置(逻辑名称)
+        order:
+            username: root
+            password: 123456
+            url: jdbc:mysql://127.0.0.1:3306/ec_order?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=GMT%2B8&useSSL=false&rewriteBatchedStatements=true&useCursorFetch=true

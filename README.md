@@ -1,17 +1,23 @@
-# mybatis-springboot-mds
+# mds-spring-boot
 
 ## 基本简介
 
-mybatis-springboot-mds是什么？
+mds-spring-boot是什么？
 
-mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-starter`)集成底座的多数据源数据访问层组件，全场景支持。
+mds-spring-boot是一个基于SpringBoot2.x的、全场景支持的、多数据源框架，支持Spring-JDBC、Mybatis、Mybatis-Plus、Mybatis-Tiny、ShardingSphere、Mycat等，支持本地事务及完整的基于Spring-@Transactional声明式事务（及事务传播特性）。
 
 
 
 ## 特性及限制
 
-支持基于mybatis-springboot(`mybatis-spring-boot-starter`)的全场景：
-- ##### 支持Mybatis的原生用法
+全场景支持：
+
+- ##### 支持单纯的Spring-JDBC原生用法（即不使用其他ORM框架）
+
+  - Spring-JDBC（`spring-boot-starter-jdbc`）是最基本的支持
+  - SpringBoot-Mybatis（`mybatis-spring-boot-starter`）是可选支持，即使用时需要手动引入`mybatis-spring-boot-starter`依赖
+
+- ##### 支持单纯的Mybatis原生用法（即不使用Mybatis-Plus、Mybatis-Tiny等懒人框架）
 - ##### 支持MybatisPlus、MybatisTiny等懒人框架用法
 
 - ##### 支持本地事务，不支持分布式事务
@@ -23,14 +29,14 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
 - ##### 支持客户端分库分表的多数据源场景
 
   - 【客户端分库分表】即诸如ShardingSphere-JDBC这样的客户端(嵌入在应用内部的)分库分表框架
-  - 这种情况下还支持混用，即存在单库数据源(例如项目中大多数表不需要分库分表，其不属于ShardingSphere管理，而属于应用本身来管理)，也存在ShardingSphereDataSource(比如项目中有几个表确实需借助ShardingSphere来做分库分表)，这种混用的场景在实际项目中也非常场景。[示例代码](https://github.com/penggle/mybatis-springboot-mds/tree/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-csmds)就是这种混用方式
+  - 这种情况下还支持混用，即存在单库数据源(例如项目中大多数表不需要分库分表，其不属于ShardingSphere管理，而属于应用本身来管理)，也存在ShardingSphereDataSource(比如项目中有几个表确实需借助ShardingSphere来做分库分表)，这种混用的场景在实际项目中也非常场景。[示例代码](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-csmds)就是这种混用方式
 
 - ##### 支持服务端分库分表多数据源场景
 
   - 【服务端分库分表】即诸如ShardingSphere-Proxy、Mycat这样的服务端(伪装成一个数据库Server)分库分表中间件
-  - 这种情况下跟传统的单库多数据源场景一样了，因为作为应用的客户端看来，ShardingSphere-Proxy、Mycat这样的分库分表中间就是一个数据库Server
+  - 这种情况下跟传统的单库多数据源场景一样了，因为作为应用的客户端看来，ShardingSphere-Proxy、Mycat这样的分库分表中间件就是一个数据库Server
 
-- ##### 再回头看看，是不是支持全场景?（除了不支持分布式事务）
+- ##### 再回头看看，是不是支持全场景?（基本上是全场景了吧）
 
 
 
@@ -43,12 +49,12 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
   ```xml
   <dependency>
       <groupId>io.github.penggle</groupId>
-      <artifactId>mybatis-springboot-mds-starter</artifactId>
+      <artifactId>mds-spring-boot-starter</artifactId>
       <!-- 版本说明：2.1指的是基于mybatis-spring-boot-starter 2.1.x版本的意思 -->
-      <version>2.1</version>
+      <version>2.1.1</version>
   </dependency>
   
-  <!-- 当然mybatis-spring-boot-starter也是需要手动引入的 -->
+  <!-- 当然mybatis-spring-boot-starter是需要手动引入的 -->
   <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
       <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -155,9 +161,9 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
 
 - 本地事务使用示例：
 
-  碍于篇幅使用精简代码，具体代码见[示例代码](https://github.com/penggle/mybatis-springboot-mds/tree/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-gmds)
+  碍于篇幅使用精简代码，具体代码见[示例代码](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-gmds)
 
-  - 测试`Propagation.REQUIRED`传播特性（[示例代码](https://github.com/penggle/mybatis-springboot-mds/blob/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-common/src/main/java/com/penglecode/codeforce/mybatismds/examples/order/app/service/impl/OrderAppServiceImpl.java)）
+  - 测试`Propagation.REQUIRED`传播特性（[示例代码](https://github.com/penggle/mds-spring-boot/blob/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-common/src/main/java/com/penglecode/codeforce/mybatismds/examples/order/app/service/impl/OrderAppServiceImpl.java)）
 
     > 由于商品表的库存字段是UNSIGNED，多运行几次会导致扣库存失败，此时可以看看商品表与订单表是否全部回滚了事务
 
@@ -180,7 +186,7 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
 
     
 
-  - 测试`Propagation.REQUIRES_NEW`传播特性（[示例代码](https://github.com/penggle/mybatis-springboot-mds/blob/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-common/src/main/java/com/penglecode/codeforce/mybatismds/examples/order/app/service/impl/OrderAppServiceImpl.java)）
+  - 测试`Propagation.REQUIRES_NEW`传播特性（[示例代码](https://github.com/penggle/mds-spring-boot/blob/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-common/src/main/java/com/penglecode/codeforce/mybatismds/examples/order/app/service/impl/OrderAppServiceImpl.java)）
 
     ```java
     @Transactional(transactionManager="product,order", propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
@@ -206,7 +212,7 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
 
 - ##### 动态注册生命周期
 
-  mybatis-springboot-mds框架提供了一个钩子接口：[MdsComponentsRegistrationLifecycle](https://github.com/penggle/mybatis-springboot-mds/blob/main/mybatis-springboot-mds-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/mybatis/MdsComponentsRegistrationLifecycle.java)
+  mds-spring-boot框架提供了一个钩子接口：[MdsComponentsRegistrationLifecycle](https://github.com/penggle/mds-spring-boot/blob/main/mds-spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/mybatis/MdsComponentsRegistrationLifecycle.java)
 
   ```java
   public interface MdsComponentsRegistrationLifecycle {
@@ -257,7 +263,7 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
   }
   ```
 
-  基于它，我们能干很多事情，我们可以自定义一个实现，并注册到Spring上下文中，这在遇到外部数据源的时候特别有用，例如"[基于ShardingSphere-JDBC的示例](https://github.com/penggle/mybatis-springboot-mds/blob/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-csmds/src/main/java/com/penglecode/codeforce/mybatismds/examples/common/config/ShardingSphereConfiguration.java)"
+  基于它，我们能干很多事情，我们可以自定义一个实现，并注册到Spring上下文中，这在遇到外部数据源的时候特别有用，例如"[基于ShardingSphere-JDBC的示例](https://github.com/penggle/mds-spring-boot/blob/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-csmds/src/main/java/com/penglecode/codeforce/mybatismds/examples/common/config/ShardingSphereConfiguration.java)"
 
 - ##### 外部数据源支持
 
@@ -284,24 +290,24 @@ mybatis-springboot-mds是一个基于mybatis-springboot(`mybatis-spring-boot-sta
   }
   ```
 
-  <u>此时基于约定的配置，并没有发现db2的yaml配置，此时mybatis-springboot-mds框架会去Spring上下文中找名字为db2DataSource的bean，如果没有则会报错。此时db2就称之为**外部数据源**</u>
+  <u>此时基于约定的配置，并没有发现db2的yaml配置，此时mds-spring-boot框架会去Spring上下文中找名字为db2DataSource的bean，如果没有则会报错。此时db2就称之为**外部数据源**</u>
 
   具体请看下面的基于ShardingSphere-JDBC的示例
 
 - ##### 基于ShardingSphere-JDBC的示例
 
-  首先为了兼顾灵活性mybatis-springboot-mds框架内部并没有任何特殊处理ShardingSphere的地方，对于mybatis-springboot-mds框架来说，ShardingSphereDataSource实例是一个**外部数据源**，仅要求其在运行时存在于Spring上下文中即可。
+  首先为了兼顾灵活性，mds-spring-boot框架内部并没有任何特殊处理ShardingSphere的地方，对于mds-spring-boot框架来说，ShardingSphereDataSource实例是一个**外部数据源**，仅要求其在运行时存在于Spring上下文中即可。
 
-  mybatis-springboot-mds框架动态注册数据访问层bean的时机太早了，以至于ShardingSphere的自动配置类`org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration`、`org.apache.shardingsphere.sharding.spring.boot.ShardingRuleSpringBootConfiguration`都还没注册到Spring上下文中，此时通过实现MdsComponentsRegistrationLifecycle来在Spring启动的早期阶段勾起对上面两个配置类的加载与自动配置工作。这个里面水很深，具体可见[基于ShardingSphere-JDBC的示例](https://github.com/penggle/mybatis-springboot-mds/blob/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example1/mybatis-springboot-mds-example1-csmds/src/main/java/com/penglecode/codeforce/mybatismds/examples/common/config/ShardingSphereConfiguration.java)
+  由于mds-spring-boot框架动态注册数据访问层bean的时机太早了，以至于ShardingSphere的自动配置类`org.apache.shardingsphere.spring.boot.ShardingSphereAutoConfiguration`、`org.apache.shardingsphere.sharding.spring.boot.ShardingRuleSpringBootConfiguration`都还没来得及注册到Spring上下文中，此时通过实现MdsComponentsRegistrationLifecycle来在Spring启动的早期阶段勾起对上面两个配置类的加载与自动配置工作。这个里面水很深（需要深入理解AbstractApplicationContext#refresh()方法和ConfigurationClassPostProcessor的工作机制）具体可见[基于ShardingSphere-JDBC的示例](https://github.com/penggle/mds-spring-boot/blob/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-csmds/src/main/java/com/penglecode/codeforce/mybatismds/examples/common/config/ShardingSphereConfiguration.java)
 
 - ##### 基于MybatisTiny的示例
 
-  [MybatisTiny](https://github.com/penggle/mybatis-tiny)是一个与MybatisPlus类似的框架，基于MybatisTiny的示例见[这里](https://github.com/penggle/mybatis-springboot-mds/tree/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example2)
+  [MybatisTiny](https://github.com/penggle/mybatis-tiny)是本人的一个与MybatisPlus类似的框架，基于MybatisTiny的示例见[这里](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example2)
 
 - ##### 基于MybatisPlus的示例
 
-  基于MybatisPlus的示例见[这里](https://github.com/penggle/mybatis-springboot-mds/tree/main/mybatis-springboot-mds-examples/mybatis-springboot-mds-example3)
+  基于MybatisPlus的示例见[这里](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example3)
 
 - ##### 示例所使用的数据库及表结构
 
-  所有示例所使用的数据库均为MySQL数据库，表结构见[这里](https://github.com/penggle/mybatis-springboot-mds/tree/main/mybatis-springboot-mds-examples/schemas)
+  所有示例所使用的数据库均为MySQL数据库，表结构见[这里](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/schemas)

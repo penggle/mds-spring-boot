@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.penggle</groupId>
+        <artifactId>mds-spring-boot-examples</artifactId>
+        <version>2.1</version>
+    </parent>
+    <artifactId>mds-spring-boot-example0</artifactId>
+    <packaging>pom</packaging>
+    <name>mds-spring-boot-example0</name>
+    <description>基于spring-jdbc原生示例(不使用Mybatis框架)</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.penggle</groupId>
+                <artifactId>mds-spring-boot-example0-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>mds-spring-boot-example0-gmds</module>
+        <module>mds-spring-boot-example0-csmds</module>
+        <module>mds-spring-boot-example0-common</module>
+    </modules>
+</project>

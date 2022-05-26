@@ -10,6 +10,7 @@
     </parent>
     <artifactId>mds-spring-boot-starter</artifactId>
     <name>mds-spring-boot-starter</name>
+    <description>A SpringBoot2-based full-scene supported multi-datasource framework, supporting Spring-JDBC、Mybatis, MyBatis-Plus, MyBatis-Tiny, ShardingSphere, Mycat etc</description>
 
     <dependencies>
         <dependency>

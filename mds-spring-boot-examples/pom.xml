@@ -105,6 +105,7 @@
 
     <modules>
         <module>mds-spring-boot-examples-common</module>
+		<module>mds-spring-boot-example0</module>
         <module>mds-spring-boot-example1</module>
         <module>mds-spring-boot-example2</module>
         <module>mds-spring-boot-example3</module>
