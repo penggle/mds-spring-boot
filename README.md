@@ -29,7 +29,7 @@ mds-spring-boot是一个基于SpringBoot2.x的、全场景支持的、多数据�
 - ##### 支持客户端分库分表的多数据源场景
 
   - 【客户端分库分表】即诸如ShardingSphere-JDBC这样的客户端(嵌入在应用内部的)分库分表框架
-  - 这种情况下还支持混用，即存在单库数据源(例如项目中大多数表不需要分库分表，其不属于ShardingSphere管理，而属于应用本身来管理)，也存在ShardingSphereDataSource(比如项目中有几个表确实需借助ShardingSphere来做分库分表)，这种混用的场景在实际项目中也非常场景。[示例代码](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-csmds)就是这种混用方式
+  - 这种情况下还支持混用，即存在单库数据源(例如项目中大多数表不需要分库分表，其不属于ShardingSphere管理，而属于应用本身来管理)，也存在ShardingSphereDataSource(比如项目中有几个表确实需借助ShardingSphere来做分库分表)，这种混用的场景在实际项目中也非常常见。[示例代码](https://github.com/penggle/mds-spring-boot/tree/main/mds-spring-boot-examples/mds-spring-boot-example1/mds-spring-boot-example1-csmds)就是这种混用方式
 
 - ##### 支持服务端分库分表多数据源场景
 
@@ -271,11 +271,12 @@ mds-spring-boot是一个基于SpringBoot2.x的、全场景支持的、多数据�
 
   ```yaml
   spring:
-      #db1库配置(逻辑名称)
-      db1:
-          username: root
-          password: 123456
-          url: jdbc:mysql://127.0.0.1:3306/myapp_db1
+  	datasource:
+          #db1库配置(逻辑名称)
+          db1:
+              username: root
+              password: 123456
+              url: jdbc:mysql://127.0.0.1:3306/myapp_db1
   ```
 
   ```java
