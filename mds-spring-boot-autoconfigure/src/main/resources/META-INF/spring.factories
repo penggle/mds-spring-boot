@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=org.springframework.boot.autoconfigure.mds.ExcludeDefaultAutoConfigurationFilter
+org.springframework.context.ApplicationContextInitializer=org.springframework.boot.autoconfigure.SpringBootInfrastructurePreInitializer

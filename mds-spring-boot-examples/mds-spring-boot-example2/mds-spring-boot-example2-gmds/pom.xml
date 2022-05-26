@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.penggle</groupId>
+        <artifactId>mds-spring-boot-example2</artifactId>
+        <version>2.1</version>
+    </parent>
+    <artifactId>mds-spring-boot-example2-gmds</artifactId>
+    <name>mds-spring-boot-example2-gmds</name>
+    <description>普通常规的(General)多数据源示例(包括server-proxy模式的分库分表，例如mycat、shardingsphere-proxy)</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.penggle</groupId>
+            <artifactId>mds-spring-boot-example2-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

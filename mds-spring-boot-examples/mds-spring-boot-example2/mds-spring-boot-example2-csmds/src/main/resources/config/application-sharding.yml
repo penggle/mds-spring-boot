@@ -1,0 +1,90 @@
+spring:
+    shardingsphere:
+        #运行模式
+        mode:
+            type: Memory
+        #数据源
+        datasource:
+            names: orderds0,orderds1
+            orderds0:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                pool-name: orderds0HikariCP
+                #最小空闲连接数量
+                minimum-idle: 5
+                #空闲连接存活最大时间，默认600000(10分钟)
+                idle-timeout: 180000
+                #连接池最大连接数，默认是10
+                maximum-pool-size: 10
+                #池中连接的默认自动提交行为，默认值true
+                auto-commit: true
+                #池中连接的最长生命周期，0表示无限生命周期，默认1800000(30分钟)
+                max-lifetime: 1800000
+                #等待来自池的连接的最大毫秒数，默认30000(30秒)
+                connection-timeout: 30000
+                #连接测试语句
+                connection-test-query: SELECT 1
+            orderds1:
+                type: com.zaxxer.hikari.HikariDataSource
+                driver-class-name: com.mysql.jdbc.Driver
+                pool-name: orderds1HikariCP
+                #最小空闲连接数量
+                minimum-idle: 5
+                #空闲连接存活最大时间，默认600000(10分钟)
+                idle-timeout: 180000
+                #连接池最大连接数，默认是10
+                maximum-pool-size: 10
+                #池中连接的默认自动提交行为，默认值true
+                auto-commit: true
+                #池中连接的最长生命周期，0表示无限生命周期，默认1800000(30分钟)
+                max-lifetime: 1800000
+                #等待来自池的连接的最大毫秒数，默认30000(30秒)
+                connection-timeout: 30000
+                #连接测试语句
+                connection-test-query: SELECT 1
+        rules:
+            sharding:
+                sharding-algorithms:
+                    database-inline:
+                        type: INLINE
+                        props:
+                            algorithm-expression: orderds$->{order_id % 2}
+                    order-table-inline:
+                        type: INLINE
+                        props:
+                            algorithm-expression: t_order_$->{order_id % 3}
+                    orderline-table-inline:
+                        type: INLINE
+                        props:
+                            algorithm-expression: t_order_line_$->{order_id % 3}
+                tables:
+                    t_order:
+                        actual-data-nodes: orderds$->{0..1}.t_order_$->{0..2}
+                        #分库策略
+                        database-strategy:
+                            standard:
+                                #基于单字段order_id通过取模算法数据库分片
+                                sharding-column: order_id
+                                sharding-algorithm-name: database-inline
+                        #分表策略
+                        table-strategy:
+                            standard:
+                                #基于单字段order_id通过取模算法表分片
+                                sharding-column: order_id
+                                sharding-algorithm-name: order-table-inline
+                    t_order_line:
+                        actual-data-nodes: orderds$->{0..1}.t_order_line_$->{0..2}
+                        #分库策略
+                        database-strategy:
+                            standard:
+                                #基于单字段order_id通过取模算法数据库分片
+                                sharding-column: order_id
+                                sharding-algorithm-name: database-inline
+                        #分表策略
+                        table-strategy:
+                            standard:
+                                #基于单字段order_id通过取模算法表分片
+                                sharding-column: order_id
+                                sharding-algorithm-name: orderline-table-inline
+                binding-tables:
+                    - t_order,t_order_line

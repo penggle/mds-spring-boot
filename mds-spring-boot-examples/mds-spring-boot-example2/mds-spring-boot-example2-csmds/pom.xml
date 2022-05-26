@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.penggle</groupId>
+        <artifactId>mds-spring-boot-example2</artifactId>
+        <version>2.1</version>
+    </parent>
+    <artifactId>mds-spring-boot-example2-csmds</artifactId>
+    <name>mds-spring-boot-example2-csmds</name>
+    <description>基于shardingsphere-jdbc的Client-Sharding模式分库分表示例</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.penggle</groupId>
+            <artifactId>mds-spring-boot-example2-common</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

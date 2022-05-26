@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penglecode.codeforce.mybatismds.examples.product.dal.mapper.ProductMapper">
+
+    <sql id="UpdateDynamicColumnsClause">
+        <trim suffixOverrides=",">
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'productName')">
+                product_name = #{columns.productName, jdbcType=VARCHAR},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'productUrl')">
+                product_url = #{columns.productUrl, jdbcType=VARCHAR},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'productType')">
+                product_type = #{columns.productType, jdbcType=TINYINT},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'unitPrice')">
+                unit_price = #{columns.unitPrice, jdbcType=BIGINT},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'inventory')">
+                inventory = #{columns.inventory, jdbcType=INTEGER},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'remark')">
+                remark = #{columns.remark, jdbcType=VARCHAR},
+            </if>
+            <if test="@com.penglecode.codeforce.mybatismds.examples.common.mybatis.MapperHelper@containsColumn(columns, 'updateTime')">
+                update_time = #{columns.updateTime, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </sql>
+
+    <insert id="insert" parameterType="com.penglecode.codeforce.mybatismds.examples.product.domain.model.Product" statementType="PREPARED">
+        INSERT INTO t_product(
+            product_id,
+            product_name,
+            product_url,
+            product_type,
+            unit_price,
+            inventory,
+            remark,
+            create_time,
+            update_time
+        ) VALUES (
+            #{productId, jdbcType=BIGINT},
+            #{productName, jdbcType=VARCHAR},
+            #{productUrl, jdbcType=VARCHAR},
+            #{productType, jdbcType=TINYINT},
+            #{unitPrice, jdbcType=BIGINT},
+            #{inventory, jdbcType=INTEGER},
+            #{remark, jdbcType=VARCHAR},
+            #{createTime, jdbcType=VARCHAR},
+            #{updateTime, jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateById" parameterType="java.util.Map" statementType="PREPARED">
+        UPDATE t_product
+           SET <include refid="UpdateDynamicColumnsClause"/>
+         WHERE product_id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <update id="updateInventory" parameterType="java.util.Map" statementType="PREPARED">
+        UPDATE t_product
+           SET inventory = inventory + #{delta, jdbcType=INTEGER}
+        WHERE product_id = #{id, jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteById" parameterType="java.util.Map" statementType="PREPARED">
+        DELETE FROM t_product WHERE product_id = #{id, jdbcType=BIGINT}
+    </delete>
+
+    <select id="selectById" parameterType="java.util.Map" resultType="com.penglecode.codeforce.mybatismds.examples.product.domain.model.Product" statementType="PREPARED">
+        SELECT * FROM t_product WHERE product_id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <select id="selectAllList" parameterType="java.util.Map" resultType="com.penglecode.codeforce.mybatismds.examples.product.domain.model.Product" statementType="PREPARED">
+        SELECT * FROM t_product
+    </select>
+
+    <select id="selectAllCount" parameterType="java.util.Map" resultType="java.lang.Integer" statementType="PREPARED">
+        SELECT COUNT(*) FROM t_product
+    </select>
+
+</mapper>
