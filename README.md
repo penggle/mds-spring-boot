@@ -271,7 +271,7 @@ mds-spring-boot是一个基于SpringBoot2.x的、全场景支持的、多数据�
 
   ```yaml
   spring:
-  	datasource:
+      datasource:
           #db1库配置(逻辑名称)
           db1:
               username: root
