@@ -13,10 +13,10 @@
     <name>mds-spring-boot-examples</name>
 
     <properties>
-        <codeforce.version>2.4</codeforce.version>
+        <codeforce.version>2.5</codeforce.version>
         <springboot.version>2.4.5</springboot.version>
         <shardingsphere.version>5.1.1</shardingsphere.version>
-        <mybatis-tiny.version>3.5</mybatis-tiny.version>
+        <mybatis-tiny.version>3.5.1</mybatis-tiny.version>
         <mysql.version>8.0.25</mysql.version>
 
         <maven.deploy.skip>true</maven.deploy.skip>

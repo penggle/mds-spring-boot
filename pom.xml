@@ -49,7 +49,7 @@
     </distributionManagement>
 
     <properties>
-        <spring-boot.version>2.4.5</spring-boot.version>
+        <springboot.version>2.4.5</springboot.version>
         <mybatis-springboot.version>2.1.4</mybatis-springboot.version>
         <spring-data-commons.version>2.4.8</spring-data-commons.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
@@ -95,7 +95,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
+                <version>${springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -152,28 +152,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                    <charset>${project.build.sourceEncoding}</charset>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <docencoding>${project.build.sourceEncoding}</docencoding>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
             </plugin>
@@ -207,6 +185,7 @@
     <modules>
         <module>mds-spring-boot-autoconfigure</module>
         <module>mds-spring-boot-starter</module>
+        <!-- 发布版本时请注释掉mds-spring-boot-examples模块 -->
         <module>mds-spring-boot-examples</module>
     </modules>
 
@@ -218,7 +197,30 @@
             </activation>
             <build>
                 <!-- 发布所需插件 -->
-                <!--<plugins>
+                <!--
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.10.3</version>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                            <charset>${project.build.sourceEncoding}</charset>
+                            <encoding>${project.build.sourceEncoding}</encoding>
+                            <docencoding>${project.build.sourceEncoding}</docencoding>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
@@ -244,7 +246,8 @@
                             </execution>
                         </executions>
                     </plugin>
-                </plugins>-->
+                </plugins>
+                -->
             </build>
         </profile>
     </profiles>
