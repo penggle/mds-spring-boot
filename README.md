@@ -51,7 +51,7 @@ mds-spring-boot是一个基于SpringBoot2.x的、全场景支持的、多数据�
       <groupId>io.github.penggle</groupId>
       <artifactId>mds-spring-boot-starter</artifactId>
       <!-- 版本说明：2.1指的是基于mybatis-spring-boot-starter 2.1.x版本的意思 -->
-      <version>2.1.1</version>
+      <version>2.1</version>
   </dependency>
   
   <!-- 当然mybatis-spring-boot-starter是需要手动引入的 -->
